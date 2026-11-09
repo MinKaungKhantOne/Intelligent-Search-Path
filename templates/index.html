@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style> 
+        * { box-sizing: border-box; margin: 0; padding: 0; } 
+        body { font-family: Arial, Helvetica, sans-serif; min-height: 100vh; background: linear-gradient(135deg, #eef2ff, #f8fafc); color: #1e293b; padding: 40px 20px; } 
+        .container { width: 100%; max-width: 1100px; margin: auto; } /* Header */ .header { text-align: center; margin-bottom: 30px; } 
+        .header h1 { font-size: 32px; font-weight: 700; color: #1e293b; margin-bottom: 8px; } 
+        .header p { color: #64748b; font-size: 15px; } 
+        .content { display: grid; grid-template-columns: 320px 1fr; gap: 24px; align-items: start; } 
+        .control-panel { background: white; border-radius: 18px; padding: 25px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); border: 1px solid #e2e8f0; } 
+        .control-panel h2 { font-size: 20px; margin-bottom: 22px; color: #334155; } 
+        .form-group { margin-bottom: 18px; } 
+        .form-group label { display: block; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 8px; } 
+        select { width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; color: #334155; font-size: 14px; outline: none; cursor: pointer; transition: 0.2s; } 
+        select:hover { border-color: #94a3b8; } select:focus { border-color: #6366f1; background: white; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12); } 
+        .search-button { width: 100%; border: none; border-radius: 10px; padding: 13px; margin-top: 5px; background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; } 
+        .search-button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(79, 70, 229, 0.25); } 
+        .search-button:active { transform: translateY(0); } /* Map Card */ .map-card { background: white; border-radius: 18px; padding: 12px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); border: 1px solid #e2e8f0; } 
+        #map { width: 100%; height: 560px; border-radius: 12px; overflow: hidden; }  
+        @media (max-width: 800px) { body { padding: 25px 15px; } 
+        .content { grid-template-columns: 1fr; } 
+        .control-panel { width: 100%; } 
+        #map { height: 450px; } 
+        .header h1 { font-size: 26px; } } 
+    </style>
+</head>
+<body>
+    <h1>Interactive Map</h1>
+    <div id="map" style="width: 600px; height: 500px;"></div>
+    <form>
+        <label>Origin City: </label>
+        <select id="origin_city">
+            {% for city in cities %}
+            <option>{{ city }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Destination City: </label>
+        <select id="destination_city">
+            {% for city in cities %}
+            <option>{{ city }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Search Algorithm: </label>
+        <select  id="s_algorithm">
+            {% for algorithm in s_algorithms%}
+            <option>{{ algorithm }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="Search">
+    </form>
+
+    <script>
+        var map = L.map('map').setView([16.83914245, 96.18157255], 6);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+        /*
+        var edges = edges = [[[21.17220655, 94.85886455], [20.14416375, 94.95398094999999]], [[21.17220655, 94.85886455], [21.940359899999997, 96.07582415]], [[21.17220655, 94.85886455], [20.5933782, 93.19105625]], [[18.82392045, 95.2597264], [17.296219999999998, 96.47303935000001]], [[18.82392045, 95.2597264], [17.6474151, 95.45496945]], [[18.82392045, 95.2597264], [20.14416375, 94.95398094999999]], [[17.296219999999998, 96.47303935000001], [16.93470515, 97.36762049999999]], [[17.296219999999998, 96.47303935000001], [18.935848749999998, 96.44120695]], [[17.296219999999998, 96.47303935000001], [18.4777356, 96.43717285]], [[17.296219999999998, 96.47303935000001], [18.82392045, 95.2597264]], [[17.296219999999998, 96.47303935000001], [16.83914245, 96.18157255]], [[18.935848749999998, 96.44120695], [18.4777356, 96.43717285]], [[18.935848749999998, 96.44120695], [17.296219999999998, 96.47303935000001]], [[18.935848749999998, 96.44120695], [19.74699975, 96.08840914999999]], [[16.88406095, 97.6510357], [16.45373495, 97.65918729999999]], [[16.88406095, 97.6510357], [16.93470515, 97.36762049999999]], [[20.878676099999996, 95.8580089], [19.74699975, 96.08840914999999]], [[20.878676099999996, 95.8580089], [20.786930899999998, 97.0500188]], [[20.878676099999996, 95.8580089], [21.940359899999997, 96.07582415]], [[19.6751921, 97.21521025], [19.74699975, 96.08840914999999]], [[19.6751921, 97.21521025], [20.786930899999998, 97.0500188]], [[16.93470515, 97.36762049999999], [16.88406095, 97.6510357]], [[16.93470515, 97.36762049999999], [16.45373495, 97.65918729999999]], [[16.93470515, 97.36762049999999], [17.296219999999998, 96.47303935000001]], [[16.83914245, 96.18157255], [17.296219999999998, 96.47303935000001]], [[16.83914245, 96.18157255], [16.786580149999995, 94.7477675]], [[16.83914245, 96.18157255], [17.6474151, 95.45496945]], [[16.83914245, 96.18157255], [16.45373495, 97.65918729999999]], [[20.14416375, 94.95398094999999], [18.82392045, 95.2597264]], [[20.14416375, 94.95398094999999], [21.17220655, 94.85886455]], [[19.74699975, 96.08840914999999], [18.935848749999998, 96.44120695]], [[19.74699975, 96.08840914999999], [20.786930899999998, 97.0500188]], [[19.74699975, 96.08840914999999], [20.878676099999996, 95.8580089]], [[19.74699975, 96.08840914999999], [19.6751921, 97.21521025]], [[18.4777356, 96.43717285], [17.296219999999998, 96.47303935000001]], [[18.4777356, 96.43717285], [18.935848749999998, 96.44120695]], [[20.5933782, 93.19105625], [21.17220655, 94.85886455]], [[22.03393955, 96.4746981], [22.9494943, 97.75049779999999]], [[22.03393955, 96.4746981], [21.940359899999997, 96.07582415]], [[20.786930899999998, 97.0500188], [19.6751921, 97.21521025]], [[20.786930899999998, 97.0500188], [22.9494943, 97.75049779999999]], [[20.786930899999998, 97.0500188], [20.878676099999996, 95.8580089]], [[20.786930899999998, 97.0500188], [19.74699975, 96.08840914999999]], [[16.786580149999995, 94.7477675], [17.6474151, 95.45496945]], [[16.786580149999995, 94.7477675], [16.83914245, 96.18157255]], [[21.940359899999997, 96.07582415], [21.17220655, 94.85886455]], [[21.940359899999997, 96.07582415], [20.878676099999996, 95.8580089]], [[21.940359899999997, 96.07582415], [22.03393955, 96.4746981]], [[21.940359899999997, 96.07582415], [22.92681475, 96.50839095]], [[21.940359899999997, 96.07582415], [22.9494943, 97.75049779999999]], [[16.45373495, 97.65918729999999], [16.25623135, 97.72795905]], [[16.45373495, 97.65918729999999], [16.83914245, 96.18157255]], [[16.45373495, 97.65918729999999], [16.93470515, 97.36762049999999]], [[16.45373495, 97.65918729999999], [16.88406095, 97.6510357]], [[22.92681475, 96.50839095], [21.940359899999997, 96.07582415]], [[17.6474151, 95.45496945], [18.82392045, 95.2597264]], [[17.6474151, 95.45496945], [16.83914245, 96.18157255]], [[17.6474151, 95.45496945], [16.786580149999995, 94.7477675]], [[16.25623135, 97.72795905], [16.45373495, 97.65918729999999]], [[22.9494943, 97.75049779999999], [21.940359899999997, 96.07582415]], [[22.9494943, 97.75049779999999], [22.03393955, 96.4746981]], [[22.9494943, 97.75049779999999], [20.786930899999998, 97.0500188]]]
+        for (edge of edges){
+            L.polyline(edge).addTo(map);
+        };
+        */
+        var layer_group = L.layerGroup().addTo(map);
+
+
+        document.querySelector('form').addEventListener("submit", event => {
+            origin_city = document.getElementById("origin_city").value;
+            destination_city = document.getElementById("destination_city").value;
+            s_algorithm = document.getElementById("s_algorithm").value;
+            event.preventDefault();
+            layer_group.clearLayers();
+            fetch("/search", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    origin: origin_city,
+                    destination: destination_city,
+                    algorithm: s_algorithm
+                })
+            }).then(resp => resp.json()).then(data => { var path_result = data; alert(`Final Path By ${s_algorithm} => ${path_result[0]}` );var pathCoordinates = path_result[1];
+            var route = L.polyline(pathCoordinates).addTo(layer_group);
+            pathCoordinates.forEach(function(coord) {L.marker(coord).addTo(layer_group);});});
+            
+        });
+    </script>
+
+</body>
+</html>

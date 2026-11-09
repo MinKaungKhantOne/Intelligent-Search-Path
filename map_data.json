@@ -1,0 +1,200 @@
+{
+    "cities": {
+        "Hinthada": {
+            "lat": 17.6474151,
+            "lng": 95.45496945
+        },
+        "Meiktila": {
+            "lat": 20.878676099999996,
+            "lng": 95.8580089
+        },
+        "Bagan": {
+            "lat": 21.17220655,
+            "lng": 94.85886455
+        },
+        "Taunggyi": {
+            "lat": 20.786930899999998,
+            "lng": 97.0500188
+        },
+        "Lashio": {
+            "lat": 22.9494943,
+            "lng": 97.75049779999999
+        },
+        "Mudon": {
+            "lat": 16.25623135,
+            "lng": 97.72795905
+        },
+        "Pyay": {
+            "lat": 18.82392045,
+            "lng": 95.2597264
+        },
+        "Pyin Oo Lwin": {
+            "lat": 22.03393955,
+            "lng": 96.4746981
+        },
+        "Mawlamyine": {
+            "lat": 16.45373495,
+            "lng": 97.65918729999999
+        },
+        "Thaton": {
+            "lat": 16.93470515,
+            "lng": 97.36762049999999
+        },
+        "Yangon": {
+            "lat": 16.83914245,
+            "lng": 96.18157255
+        },
+        "Bago": {
+            "lat": 17.296219999999998,
+            "lng": 96.47303935000001
+        },
+        "Loikaw": {
+            "lat": 19.6751921,
+            "lng": 97.21521025
+        },
+        "Mandalay": {
+            "lat": 21.940359899999997,
+            "lng": 96.07582415
+        },
+        "Phyu": {
+            "lat": 18.4777356,
+            "lng": 96.43717285
+        },
+        "Naypyidaw": {
+            "lat": 19.74699975,
+            "lng": 96.08840914999999
+        },
+        "Mrauk-U": {
+            "lat": 20.5933782,
+            "lng": 93.19105625
+        },
+        "Magway": {
+            "lat": 20.14416375,
+            "lng": 94.95398094999999
+        },
+        "Taungoo": {
+            "lat": 18.935848749999998,
+            "lng": 96.44120695
+        },
+        "Mogok": {
+            "lat": 22.92681475,
+            "lng": 96.50839095
+        },
+        "Pathein": {
+            "lat": 16.786580149999995,
+            "lng": 94.7477675
+        },
+        "Hpa-An": {
+            "lat": 16.88406095,
+            "lng": 97.6510357
+        }
+    },
+    "graph": {
+        "Bagan": {
+            "Magway": 153.7,
+            "Mandalay": 184.8,
+            "Mrauk-U": 504.3
+        },
+        "Pyay": {
+            "Bago": 287.1,
+            "Hinthada": 200.4,
+            "Magway": 195.1
+        },
+        "Bago": {
+            "Thaton": 160.5,
+            "Taungoo": 221.7,
+            "Phyu": 166.8,
+            "Pyay": 287.1,
+            "Yangon": 68.9
+        },
+        "Taungoo": {
+            "Phyu": 53.1,
+            "Bago": 221.7,
+            "Naypyidaw": 112.5
+        },
+        "Hpa-An": {
+            "Mawlamyine": 59.8,
+            "Thaton": 55.0
+        },
+        "Meiktila": {
+            "Naypyidaw": 144.7,
+            "Taunggyi": 184.8,
+            "Mandalay": 139.1
+        },
+        "Loikaw": {
+            "Naypyidaw": 242.9,
+            "Taunggyi": 150.2
+        },
+        "Thaton": {
+            "Hpa-An": 55.0,
+            "Mawlamyine": 74.4,
+            "Bago": 160.5
+        },
+        "Yangon": {
+            "Bago": 68.9,
+            "Pathein": 194.3,
+            "Hinthada": 167.6,
+            "Mawlamyine": 310.5
+        },
+        "Magway": {
+            "Pyay": 195.1,
+            "Bagan": 153.7
+        },
+        "Naypyidaw": {
+            "Taungoo": 112.5,
+            "Taunggyi": 274.3,
+            "Meiktila": 144.7,
+            "Loikaw": 242.9
+        },
+        "Phyu": {
+            "Bago": 166.8,
+            "Taungoo": 53.1
+        },
+        "Mrauk-U": {
+            "Bagan": 504.3
+        },
+        "Pyin Oo Lwin": {
+            "Lashio": 228.8,
+            "Mandalay": 73.5
+        },
+        "Taunggyi": {
+            "Loikaw": 150.2,
+            "Lashio": 346.2,
+            "Meiktila": 184.8,
+            "Naypyidaw": 274.3
+        },
+        "Pathein": {
+            "Hinthada": 138.0,
+            "Yangon": 194.3
+        },
+        "Mandalay": {
+            "Bagan": 184.8,
+            "Meiktila": 139.1,
+            "Pyin Oo Lwin": 73.5,
+            "Mogok": 202.1,
+            "Lashio": 304.7
+        },
+        "Mawlamyine": {
+            "Mudon": 25.8,
+            "Yangon": 310.5,
+            "Thaton": 74.4,
+            "Hpa-An": 59.8
+        },
+        "Mogok": {
+            "Mandalay": 202.1
+        },
+        "Hinthada": {
+            "Pyay": 200.4,
+            "Yangon": 167.6,
+            "Pathein": 138.0
+        },
+        "Mudon": {
+            "Mawlamyine": 25.8
+        },
+        "Lashio": {
+            "Mandalay": 304.7,
+            "Pyin Oo Lwin": 228.8,
+            "Taunggyi": 346.2
+        }
+    }
+}
